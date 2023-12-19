@@ -7,8 +7,7 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     const { participant, paymentMethod, paymentData } = req.body;
-    console.log(paymentData);
-    // Check if the participant exists
+    // console.log(paymentData);
     const existingParticipant = await Participant.findById(participant);
     if (!existingParticipant) {
       return res.status(404).json({ error: "Participant not found" });
@@ -45,12 +44,11 @@ router.post("/", async (req, res) => {
       paymentMethod,
       ...paymentDetails,
     });
-    // Save the payment information to the database
     const savedPayment = await newPayment.save();
 
     res.status(201).json(savedPayment);
   } catch (error) {
-    console.error("Error processing payment:", error);
+    // console.error("Error processing payment:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
